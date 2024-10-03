@@ -69,18 +69,18 @@
      
   Result in JSON-
   
-     {
-        "id": 1,
-        "name": "finance",
-        "employees": []
-     }
+      {
+       "id": 1,
+       "name": "finance",
+       "employees": []
+      }
  
- - hit the post benefit endpoint and post the following parameters, add as much.
+- hit the post benefit endpoint and post the following parameters, add as much.
   
-     {
+      {
       "benefitName": "Health Insurance",
       "description": "Comprehensive health coverage"
-     }
+      }
     
       {   
        "benefitName": "Retirement Plan",
