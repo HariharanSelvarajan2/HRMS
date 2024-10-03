@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>HRMS Sidebar</title>
+    <meta charset="UTF-8">
+
+    <!-- Font styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 60px; /* Default collapsed sidebar width */
+            background-color: #fff;
+            transition: width 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Expanded sidebar width on hover */
+        .sidebar:hover {
+            width: 250px; /* Expanded sidebar width on hover */
+        }
+
+        /* Sidebar contents */
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            flex-grow: 1; /* Allow ul to grow and fill the sidebar */
+        }
+
+        /* Sidebar HRMS header */
+        .sidebar .sidebar-header {
+            padding: 15px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar .sidebar-header span {
+            font-size: 22px;
+            color: #888;
+            margin-left: 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* When sidebar is collapsed, hide the HRMS wording */
+        .sidebar:not(:hover) .sidebar-header span {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Sidebar links and icons */
+        .sidebar li {
+            display: flex; /* Flex for even icon and text alignment */
+            align-items: center; /* Center items vertically */
+            justify-content: flex-start; /* Align items to the left */
+            padding: 10px 15px; /* Adjusted padding for spacing */
+            transition: background-color 0.3s ease;
+            width: 100%; /* Make li take full width */
+            border-radius: 5px; /* Slightly rounded corners for items */
+        }
+
+        .sidebar li:hover {
+            background-color: #f0f0f0; /* Hover effect */
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+            display: flex; /* Flexbox for icon and text */
+            align-items: center; /* Center items vertically */
+            justify-content: flex-start; /* Align text to the left */
+            width: 100%; /* Take full width */
+        }
+
+        .sidebar i {
+            font-size: 20px; /* Adjusted icon size */
+            margin-right: 0px; /* Adjust margin for spacing */
+            flex-shrink: 0; /* Prevent icon from shrinking */
+            width: 30px; /* Fixed width for centering */
+        }
+
+        /* Collapsed sidebar settings */
+        .sidebar .nav-text {
+            font-size: 14px; /* Text size */
+            font-weight: 500; /* Adjusted font weight */
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar:not(:hover) .nav-text {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Sidebar toggle button (round black button) */
+        .toggle-label {
+            cursor: pointer;
+            font-size: 24px;
+            padding: 10px;
+            color: #fff;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            border-radius: 50%;
+            width: 20px; /* Adjusted size */
+            height: 20px; /* Adjusted size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: left 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Hover effect for toggle button */
+        .toggle-label:hover {
+            background-color: #000;
+        }
+
+        /* Center toggle button when collapsed */
+        .sidebar:not(:hover) .toggle-label {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Move toggle button to the side when expanded */
+        .sidebar:hover .toggle-label {
+            left: 20px;
+            transform: translateX(0);
+        }
+
+        /* Dark Mode */
+        body.light {
+            background-color: #f9f9f9;
+        }
+
+        body.dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Dark mode for sidebar */
+        .sidebar.light {
+            background-color: #fff;
+        }
+
+        .sidebar.dark {
+            background-color: #555;
+        }
+
+        .sidebar.light a {
+            color: #333;
+        }
+
+        .sidebar.dark a {
+            color: #fff;
+        }
+
+        /* Dark mode toggle */
+        .footer {
+            margin-top: auto;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column; /* Change to column when collapsed */
+            justify-content: center; /* Center buttons in footer */
+        }
+
+        /* Dark/Light mode buttons style */
+        .footer .toggle-btn {
+            padding: 10px;
+            background-color: #ccc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            width: 25px;
+            height: 25px;
+            margin: 2px 0; /* Add margin for spacing between buttons */
+        }
+
+        /* Adjust buttons position when expanded */
+        .sidebar:hover .footer {
+            flex-direction: row; /* Change to row when expanded */
+            justify-content: space-around; /* Space out buttons */
+        }
+
+        /* Light/Dark mode button colors */
+        body.dark .footer .toggle-btn {
+            background-color: #444;
+            color: #fff;
+        }
+
+        /* Icons for Dark and Light mode buttons */
+        .footer .light-mode-btn i {
+            color: yellow; /* Icon color for light mode */
+        }
+
+        .footer .dark-mode-btn i {
+            color: #333; /* Icon color for dark mode */
+        }
+    </style>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="light">
+
+    <!-- Sidebar -->
+    <div class="sidebar light" th:classappend="${darkMode ? 'dark' : 'light'}">
+        <!-- HRMS header with subtitle -->
+        <div class="sidebar-header">
+            <i class="fas fa-circle"></i> <!-- Round logo near HRMS -->
+            <span>HRMS</span>
+        </div>
+
+        <label for="toggleSidebar" class="toggle-label"></label>
+
+        <!-- Sidebar navigation -->
+        <ul>
+            <li>
+                <a href="/dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/employee">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">All Employees</span>
+                </a>
+            </li>
+            <li>
+                <a href="/departments">
+                    <i class="fas fa-building"></i>
+                    <span class="nav-text">All Departments</span>
+                </a>
+            </li>
+            <li>
+                <a href="/attendance">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="nav-text">Attendance</span>
+                </a>
+            </li>
+            <li>
+                <a href="/payroll">
+                    <i class="fas fa-money-check"></i>
+                    <span class="nav-text">Payroll</span>
+                </a>
+            </li>
+            <li>
+                <a href="/jobs">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="nav-text">Jobs</span>
+                </a>
+            </li>
+            <li>
+                <a href="/candidates">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Candidates</span>
+                </a>
+            </li>
+            <li>
+                <a href="/leaves">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-text">Leaves</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Footer with dark and light mode toggle -->
+        <div class="footer">
+            <!-- Light mode button -->
+            <button class="toggle-btn light-mode-btn" onclick="toggleLightMode()">
+                <i class="fas fa-sun"></i>
+            </button>
+            <!-- Dark mode button -->
+            <button class="toggle-btn dark-mode-btn" onclick="toggleDarkMode()">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript to toggle light and dark mode -->
+    <script th:inline="javascript">
+        function toggleLightMode() {
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.remove('light');
+            document.body.classList.add('dark');
+        }
+    </script>
+</body>
+</html>
