@@ -112,10 +112,11 @@
             "description": "free meals"
         }
   
- - hit the post employee endpoint and post the following parameters.
+- hit the post employee endpoint and post the following parameters.
   (Refer the employee service, the department id,benefit id is got, using DTO object, resultant is mapped)
   
-     {
+  
+       {
         "name": "rrrrr",
         "contactNumber": 9888666666,
         "salary": 98888,
@@ -133,11 +134,11 @@
                 "id": 3
             }
         ]
-     }
+        }
      
    Result in Json-
    
-      {
+        {
         "id": 1,
         "name": "dra",
         "contactNumber": 9888666666,
@@ -160,7 +161,7 @@
             "benefitName": "Complemenary meals",
             "description": "free meals"
         }
-    ]
-    }
+       ]
+       }
   
   
