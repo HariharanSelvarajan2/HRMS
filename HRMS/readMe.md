@@ -60,12 +60,12 @@
  
  - After running the Application,
 
- - hit the Post department endpoint, post the following parameters.
+- hit the Post department endpoint, post the following parameters.
   (employee list will be null, employee objects will be added later) 
   
-     {
+      {
        "name":"finance"
-     }
+      }
      
   Result in JSON-
   
@@ -77,22 +77,20 @@
  
  - hit the post benefit endpoint and post the following parameters, add as much.
   
-    {
+     {
       "benefitName": "Health Insurance",
       "description": "Comprehensive health coverage"
-    }
+     }
     
-    {
-            
+     {   
        "benefitName": "Retirement Plan",
        "description": "Retirement benefits"
-    }
+     }
     
-    {
-            
+     {    
        "benefitName": "Complemenary meals",
        "description": "free meals"
-    }
+     }
     
    result in JSON-
    
