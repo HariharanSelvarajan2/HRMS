@@ -82,32 +82,32 @@
       "description": "Comprehensive health coverage"
      }
     
-     {   
+      {   
        "benefitName": "Retirement Plan",
        "description": "Retirement benefits"
-     }
+      }
     
-     {    
+      {    
        "benefitName": "Complemenary meals",
        "description": "free meals"
-     }
+      }
     
    result in JSON-
    
         {
-            "id": 1,
-            "benefitName": "Health Insurance",
-            "description": "Comprehensive health coverage"
+         "id": 1,
+         "benefitName": "Health Insurance",
+         "description": "Comprehensive health coverage"
         },
         {
-            "id": 2,
-            "benefitName": "Retirement Plan",
-            "description": "Retirement benefits"
+         "id": 2,
+         "benefitName": "Retirement Plan",
+         "description": "Retirement benefits"
         },
         {
-            "id": 3,
-            "benefitName": "Complemenary meals",
-            "description": "free meals"
+         "id": 3,
+         "benefitName": "Complemenary meals",
+         "description": "free meals"
         }
   
 - hit the post employee endpoint and post the following parameters.
