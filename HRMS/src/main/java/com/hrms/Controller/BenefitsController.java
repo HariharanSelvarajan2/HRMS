@@ -46,11 +46,11 @@ public class BenefitsController {
 			throw new BenefitsNotFoundException("Benefits not found");
 		}
 	}
-
+	
 	@PutMapping("/{id}")
 	public Benefits updateBenefit(@PathVariable Long id, @RequestBody Benefits updatedBenefit) {
 		try {
-			return benefitService.update(updatedBenefit);
+			return benefitService.update(id,updatedBenefit);
 		} catch (Exception e) { 
 			throw new BenefitsNotFoundException("Benefits not found"); 
 		}

@@ -34,6 +34,15 @@ public class Benefits {
 		this.benefitName = benefitName;
 		this.description = description;
 	}
+	
+	
+
+	public Benefits(Long id, @NotNull(message = "benefit cannot be null") String benefitName, String description) {
+		super();
+		this.id = id;
+		this.benefitName = benefitName;
+		this.description = description;
+	}
 
 	public Long getId() {
 		return id;

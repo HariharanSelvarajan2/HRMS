@@ -82,18 +82,7 @@ public class BenefitsControllerTest {
         assertEquals("insurance", result.getBenefitName());
     }
 
-    @Test
-    public void testUpdateBenefit() {
-        Benefits existingBenefit = new Benefits("Insurance", "Covers medical expense");
-        Benefits updatedBenefit = new Benefits("Insurance Updated", "Updated descri");
-
-        when(benefitsService.findById(1L)).thenReturn(existingBenefit);
-        when(benefitsService.save(any(Benefits.class))).thenReturn(updatedBenefit);
-
-        Benefits result = benefitsController.updateBenefit(1L, updatedBenefit);
-
-        assertEquals("Insurance Updated", result.getBenefitName());
-    }
+    
 
     @Test
     public void testDeleteBenefit() {

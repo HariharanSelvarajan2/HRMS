@@ -2,47 +2,21 @@ package com.hrms.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hrms.model.Benefits;
-import com.hrms.repository.BenefitsRepository;
-
 @Service
-public class BenefitsService {
+public interface BenefitsService {
 
-	@Autowired
-	private BenefitsRepository benefitRepository;
+    List<Benefits> findAll();
 
-	public List<Benefits> findAll() {
-		return benefitRepository.findAll();
-	}
+    Benefits save(Benefits benefit);
 
-	public Benefits save(Benefits benefit) {
-		return benefitRepository.save(benefit);
-	}
-	
-	public Benefits update(Benefits benefit) {
-		if(benefitRepository.findById(benefit.getId())!=null) {
-			Benefits benefits = benefitRepository.findById(benefit.getId()).orElse(null);
-			benefits.setBenefitName(benefit.getBenefitName());
-			benefits.setDescription(benefit.getDescription());
-			return benefitRepository.save(benefits); 
-		}else {
-			return null;
-		}
-		
-	}
+    Benefits update(Long id,Benefits benefit);
 
-	public Benefits findById(Long id) {
-		return benefitRepository.findById(id).orElse(null);
-	}
+    Benefits findById(Long id);
 
-	public void deleteBenefit(Long id) {
-		benefitRepository.deleteById(id);
-	}
-	
-	public void deleteAll() {
-		benefitRepository.deleteAll(); 
-	}
+    void deleteBenefit(Long id);
+
+    void deleteAll();
 }

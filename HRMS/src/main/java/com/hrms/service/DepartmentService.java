@@ -2,41 +2,21 @@ package com.hrms.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hrms.model.Department;
-import com.hrms.repository.DepartmentRepository;
-
 @Service
-public class DepartmentService {
+public interface DepartmentService {
 
-	@Autowired
-	private DepartmentRepository departmentRepository;
+	List<Department> findAll();
 
-	public List<Department> findAll() {
-		return departmentRepository.findAll();
-	}
+	Department save(Department department);
 
-	public Department save(Department department) {
-		return departmentRepository.save(department);
-	}
+	Department findById(Long id);
 
-	public Department findById(Long id) {
-		return departmentRepository.findById(id).orElseGet(null);
-	}
+	void deleteDepartment(Long id);
 
-	public void deleteDepartment(Long id) {
-		departmentRepository.deleteById(id);
-	}
+	Department updateDepartment(Long id, Department updatedDepartment);
 
-	public Department updateDepartment(Long id, Department updatedDepartment) {
-		Department existingDepartment = departmentRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Department not found"));
-		existingDepartment.setName(updatedDepartment.getName());
-		return departmentRepository.save(existingDepartment);
-	}
-	public void deleteAll() {
-		departmentRepository.deleteAll(); 
-	}
+	void deleteAll();
 }
